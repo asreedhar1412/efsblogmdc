@@ -1,8 +1,13 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
+from django.contrib import admin
 from . import views
+from .views import home, register
+from rest_framework.urlpatterns import format_suffix_patterns
+
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
+    url(r'^register/', views.register, name='register'),
     url(r'^home/$', views.home, name='home'),
     url(r'^customer/$', views.customer_list, name='customer_list'),
     url(r'^customer/(?P<pk>\d+)/delete/$', views.customer_delete, name='customer_delete'),
@@ -16,5 +21,7 @@ urlpatterns = [
     url(r'^investment/(?P<pk>\d+)/delete/$', views.investment_delete, name='investment_delete'),
     url(r'^investment/(?P<pk>\d+)/edit/$', views.investment_edit, name='investment_edit'),
     url(r'^investment/create/$', views.investment_new, name='investment_new'),
+    url(r'^customers_json/', views.CustomerList.as_view()),
 
 ]
+urlpatterns = format_suffix_patterns(urlpatterns)
